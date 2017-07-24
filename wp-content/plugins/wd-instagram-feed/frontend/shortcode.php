@@ -43,8 +43,20 @@ function wdi_feed($atts, $widget_params = '')
     'id' => 'no_id',
   ), $atts);
   if ($attributes['id'] == 'no_id') {
-    ob_get_clean();
-    return __('Invalid shortcode', "wd-instagram-feed");
+    //including feed model
+    require_once(WDI_DIR . '/admin/models/WDIModelEditorShortcode.php');
+    $shortcode_feeds_model = new WDIModelEditorShortcode();
+    /*if there are feeds select first one*/
+    $first_feed_id = $shortcode_feeds_model->get_first_feed_id();
+
+    $attributes['id'] = isset($first_feed_id) ? $first_feed_id : $attributes['id'];
+
+    if($attributes['id'] == 'no_id'){
+      ob_get_clean();
+      return __('No feed. Create and publish a feed to display it.', "wd-instagram-feed");
+    }
+    /*else continue*/
+
   }
 
 
@@ -80,7 +92,7 @@ function wdi_feed($atts, $widget_params = '')
     $feed_row['number_of_columns'] = (string)$widget_params['number_of_columns'];
 
     if ($widget_params['enable_loading_buttons'] == 0) {
-      $feed_row['feed_display_view'] = 'widget';
+      $feed_row['feed_display_view'] = 'none';
     }
   }
 

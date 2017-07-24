@@ -36,7 +36,6 @@ class WDIViewEditorShortcode {
      width: 200px;
      padding: 5px;
      font-size: 14px;
-     line-height: 1;
      color:rgb(68, 68, 68);
      border-radius: 0;
      height: 34px;

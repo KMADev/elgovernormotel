@@ -128,7 +128,7 @@ wdi_responsive.columnControl = function (currentFeed, load, customWidth)
           currentFeed.displayedData = [];
           wdi_front.masonryDisplayFeedItems(dataToBeDisplayed, currentFeed);
           wdi_front.applyFilters(currentFeed);
-          wdi_front.allImagesLoaded(currentFeed);
+          ///wdi_front.allImagesLoaded(currentFeed);
 
 
         }

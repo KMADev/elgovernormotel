@@ -32,6 +32,28 @@ class WDIControllerFeeds_wdi {
       $this->display();
     }
   }
+  
+  public function create_feed($settings = array()) {
+    require_once WDI_DIR . "/admin/models/WDIModelFeeds_wdi.php";
+    $model = new WDIModelFeeds_wdi();
+
+    $defaults = $model->wdi_get_feed_defaults();
+
+    if (!empty($settings)) {
+      $settings = $this->sanitize_input($settings, $defaults);
+      $settings = wp_parse_args($settings, $defaults);
+    } else {
+      $settings = $defaults;
+    }
+
+    global $wpdb;
+
+    $wpdb->insert($wpdb->prefix . WDI_FEED_TABLE, $settings, $this->dataFormat);
+    return $wpdb->insert_id;
+    //if ($wpdb->insert_id == false) {
+    //$this->message(__('Cannot Write on database. Check database permissions.', "wd-instagram-feed"), 'error');
+    //}
+  }
   ////////////////////////////////////////////////////////////////////////////////////////
   // Private Methods                                                                     //
   ////////////////////////////////////////////////////////////////////////////////////////
@@ -190,6 +212,9 @@ class WDIControllerFeeds_wdi {
     }
     $this->display();
   }
+
+  
+
 
   private function apply_changes(){
     require_once WDI_DIR . "/admin/models/WDIModelFeeds_wdi.php";

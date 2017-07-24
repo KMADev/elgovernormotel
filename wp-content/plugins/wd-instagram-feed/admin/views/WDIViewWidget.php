@@ -63,7 +63,7 @@ class WDIViewWidget {
                   $id_enable_loading_buttons, $name_enable_loading_buttons) {
     $defaults = array(
 			'title' => 'Instagram Feed',
-      'feed_id' => $this->model->get_last_feed_id(),
+      'feed_id' => 1,
       'img_number' => 4,
       'show_likes_comments' => 0,
       'number_of_columns' => 1,

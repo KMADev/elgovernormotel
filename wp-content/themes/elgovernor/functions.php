@@ -88,21 +88,21 @@ function kdemo_scripts() {
 	wp_register_script( 'images-loaded', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.min.js', array('jquery'), '0.0.1', true );
 	wp_register_script( 'moment-js', 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js','jquery', array(), true);
 	wp_register_script( 'fullcalendar-js', '//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.1/fullcalendar.min.js' , 'jquery' , array(), '1.0.0', true );
-    wp_register_script( 'custom-scripts', get_template_directory_uri() . '/js/scripts.js', array(), '0.0.2', true );
+    wp_register_script( 'custom-scripts', wp_normalize_path(get_template_directory_uri() . '/js/scripts.js'), array(), '0.0.2', true );
 	wp_register_script( 'masonry', 'https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js', array('jquery','images-loaded'), '0.0.1', true );
 	wp_register_script( 'lightbox', 'https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js', array('jquery'), '0.0.1', true );
-	wp_register_script( 'idx-js', get_template_directory_uri() . '/modules/idx/idx.js', array('jquery'), '0.0.1', true );
+	wp_register_script( 'idx-js', wp_normalize_path(get_template_directory_uri() . '/modules/idx/idx.js'), array('jquery'), '0.0.1', true );
 	wp_register_script( 'lazy-js', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.4/jquery.lazy.min.js', array('jquery'), '0.0.1', true );
 	wp_register_script( 'select2-js', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js', array('jquery'), '0.0.1', true );
 
 	//wp ajax scripts
-	wp_register_script( "ajax-scripts", get_template_directory_uri() . '/js/ajax.js', array('jquery'), '0.0.2' , true );
+	wp_register_script( "ajax-scripts", wp_normalize_path(get_template_directory_uri() . '/js/ajax.js'), array('jquery'), '0.0.2' , true );
 	wp_localize_script( 'ajax-scripts', 'wpAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
-	wp_register_script( "events-ajax", get_template_directory_uri() . '/modules/events/events.js', array('jquery'), '0.0.2' , true );
+	wp_register_script( "events-ajax", wp_normalize_path(get_template_directory_uri() . '/modules/events/events.js'), array('jquery'), '0.0.2' , true );
 	wp_localize_script( 'events-ajax', 'wpAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
-	wp_register_script( "idx-ajax", get_template_directory_uri() . '/modules/idx/idx.ajax.js', array('jquery'), '0.0.0' , true );
+	wp_register_script( "idx-ajax", wp_normalize_path(get_template_directory_uri() . '/modules/idx/idx.ajax.js'), array('jquery'), '0.0.0' , true );
 	wp_localize_script( 'idx-ajax', 'wpAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
-    wp_register_script( "weather-ajax", get_template_directory_uri() . '/modules/weather/weather.js', array('jquery'), '0.0.0' , true );
+    wp_register_script( "weather-ajax", wp_normalize_path(get_template_directory_uri() . '/modules/weather/weather.js'), array('jquery'), '0.0.0' , true );
     wp_localize_script( 'weather-ajax', 'wpAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
 
 	wp_enqueue_script( 'jquery' );
@@ -118,7 +118,7 @@ function kdemo_scripts() {
 add_action( 'wp_enqueue_scripts', 'kdemo_scripts' );
 
 function prefix_add_footer_styles() {
-	wp_enqueue_style( 'kdemo-footer-styles', get_template_directory_uri() . '/style.css', false, '0.0.3' );
+	wp_enqueue_style( 'kdemo-footer-styles', wp_normalize_path(get_template_directory_uri() . '/style.css'), false, '0.0.3' );
 };
 add_action( 'get_footer', 'prefix_add_footer_styles' );
 
@@ -216,13 +216,13 @@ if ( ! function_exists( 'kdemo_inline' ) ) :
 	function kdemo_inline() {
 		?>
         <style type="text/css">
-            <?php echo file_get_contents('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css' ) ?>
+            <?php echo file_get_contents('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css' ); ?>
         </style>
         <style type="text/css">
-            <?php echo file_get_contents(get_template_directory_uri() . '/modules/modulestyles.php?ver=0.0.1') ?>
+            <?php echo file_get_contents(wp_normalize_path(get_template_directory_uri() . '/modules/modulestyles.php?ver=0.0.1') ); ?>
         </style>
         <style type="text/css">
-            <?php echo file_get_contents(get_template_directory_uri() . '/css/inline.css?ver=0.0.3' ) ?>
+            <?php echo file_get_contents(wp_normalize_path(get_template_directory_uri() . '/css/inline.css?ver=0.0.3') ); ?>
         </style>
 		<?php
 	}

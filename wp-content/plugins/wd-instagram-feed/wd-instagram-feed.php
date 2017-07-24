@@ -3,7 +3,7 @@
 Plugin Name: Instagram Feed WD
 Plugin URI: https://web-dorado.com/products/wordpress-instagram-feed-wd.html
 Description: WD Instagram Feed is a user-friendly tool for displaying user or hashtag-based feeds on your website. You can create feeds with one of the available layouts. It allows displaying image metadata, open up images in lightbox, download them and even share in social networking websites.
-Version: 1.1.28
+Version: 1.2.1
 Author: WebDorado
 Author URI: https://web-dorado.com
 License: GPLv2 or later
@@ -21,7 +21,7 @@ define("WDI_META", "_".WDI_VAR."_meta");
 //define("wdi",'wdi');
 define('WDI_FEED_TABLE','wdi_feeds');
 define('WDI_THEME_TABLE','wdi_themes');
-define('WDI_VERSION','1.1.28');
+define('WDI_VERSION','1.2.1');
 define('WDI_IS_PRO','false');
 
 
@@ -123,6 +123,82 @@ function wdi_setup_redirect() {
   }
 }
 
+add_filter('wdi_sanitize_options', 'wdi_create_sample_feed');
+
+function wdi_create_sample_feed($new_options) {
+
+  //submit wdi options
+  if (!isset($_POST['option_page']) || $_POST['option_page'] != 'wdi_all_settings') {
+    return $new_options;
+  }
+
+  $wdi_options = wdi_get_options();
+
+  if(empty($new_options['wdi_user_name'])) {
+    return $new_options;
+  }
+
+  $first_user_username = get_option('wdi_first_user_username');
+  if($first_user_username !== false && $new_options['wdi_user_name'] !== $first_user_username){
+    update_option('wdi_sample_feed_post_url', '0');
+    return $new_options;
+  }
+
+
+  if (!empty($wdi_options['wdi_access_token']) || empty($new_options['wdi_access_token'])) {
+    return $new_options;
+  }
+
+  $wdi_sample_feed_post_id = get_option('wdi_sample_feed_post_id');
+  if ($wdi_sample_feed_post_id !== false) {
+    return $new_options;
+  }
+
+  require_once(WDI_DIR . '/admin/controllers/WDIControllerFeeds_wdi.php');
+  require_once(WDI_DIR . '/framework/WDILibrary.php');
+
+  $default_user = new stdClass();
+  $default_user->username = $new_options['wdi_user_name'];
+  $default_user->id = "";
+
+  $settings = array(
+    'feed_users' => json_encode(array($default_user)),
+  );
+
+  $controller = new WDIControllerFeeds_wdi();
+  $feed_id = $controller->create_feed($settings);
+
+  //db error
+  if ($feed_id == false) {
+    return $new_options;
+  }
+
+  $post_content = "<p>".__('This is a private page. To make it public, edit it and change the visibility.').
+        "</p>".
+        '[wdi_feed id="' . $feed_id . '"]';
+
+  $post_args = array(
+    'post_content' => $post_content,
+    'post_status' => 'private',
+    'post_title' => __('My Instagram Feed', 'wd-instagram-feed'),
+    'post_type' => 'page',
+  );
+
+  $post_id = wp_insert_post($post_args);
+
+  if ($post_id === 0) {
+    return $new_options;
+  }
+
+  update_option('wdi_first_user_username', $new_options['wdi_user_name']);
+  update_option('wdi_sample_feed_id', $feed_id);
+  update_option('wdi_sample_feed_post_id', $post_id);
+  update_option('wdi_sample_feed_post_url', '1');
+
+
+  return $new_options;
+}
+
 
 
 
@@ -138,12 +214,14 @@ function wdi_register_settings(){
 
   //adding configure section
   add_settings_section('wdi_configure_section',__('Configure', "wd-instagram-feed"),'wdi_configure_section_callback','settings_wdi');
-
+  
   //adding customize section
-  add_settings_section('wdi_customize_section',__('Customize', "wd-instagram-feed"),'wdi_customize_section_callback','settings_wdi');
+
+  add_settings_section('wdi_customize_section', __('Customize', "wd-instagram-feed"), 'wdi_customize_section_callback', 'settings_wdi');
 
   //adding settings fileds form getted settings
   foreach($settings as $setting_name => $setting){
+
     if(isset($setting['field_or_not'])==true && $setting['field_or_not']!='no_field'){
       add_settings_field(
         $setting_name,

@@ -16,7 +16,30 @@ jQuery(document).ready(function() {
 	jQuery('#wdi_add_user_ajax').after(jQuery("<br><label class='wdi_pro_only' for='wdi_add_user_ajax_input'>" + wdi_messages.username_hashtag_multiple + "</label>"));
 
 
+	if(jQuery('body').hasClass('instagram-feed-wd_page_wdi_settings')){
+		wdi_advanced_option_controller();
+	}
+
 });
+
+function wdi_advanced_option_controller() {
+
+	var $table = jQuery(jQuery('#wdi_user_id').closest('form').find('.form-table').get(1));
+	$table.addClass('wdi_advanced_option wdi_advanced_option_close');
+	var tr = "<tr class='wdi_advanced_option_head'><th>ADVANCED OPTIONS</th><td><div class='wdi_advanced_option_icon'></div></td></tr>";
+	$tr = jQuery(tr);
+	$table.prepend($tr);
+
+	$tr.on('click', function () {
+		if ($table.hasClass('wdi_advanced_option_open')) {
+			$table.removeClass('wdi_advanced_option_open');
+			$table.addClass('wdi_advanced_option_close');
+		} else {
+			$table.removeClass('wdi_advanced_option_close');
+			$table.addClass('wdi_advanced_option_open');
+		}
+	});
+}
 
 function wdi_controller() {};
 

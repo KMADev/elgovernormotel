@@ -130,6 +130,11 @@ wdi_front.globalInit = function ()
     currentFeed.instagramRequestCounter = 0;
 
     /**
+     * flag: false initially, becomes true after first request, no matter if there is response or not
+     * */
+    currentFeed.mediaRequestsDone = false;
+
+    /**
      * This array stores data from each request,
      * it is used to determine and remove duplicate photos caused by multiple hashtags
      * it is resetted to its inital [] value after displaying feed
@@ -285,6 +290,8 @@ wdi_front.instagramRequest = function (id, currentFeed)
     currentFeed.instagram.getRecentLikedMedia({
       success: function (response)
       {
+        currentFeed.mediaRequestsDone = true;
+
         response = _this.checkMediaResponse(response);
         if (response != false) {
           _this.saveSelfUserData(response, currentFeed);
@@ -297,6 +304,8 @@ wdi_front.instagramRequest = function (id, currentFeed)
       currentFeed.instagram.getTagRecentMedia(this.stripHashtag(feed_users[id]['username']), {
         success: function (response)
         {
+          currentFeed.mediaRequestsDone = true;
+
           response = _this.checkMediaResponse(response);
           if (response != false) {
             _this.saveUserData(response, currentFeed.feed_users[id], currentFeed);
@@ -309,6 +318,8 @@ wdi_front.instagramRequest = function (id, currentFeed)
         currentFeed.instagram.getUserRecentMedia(feed_users[id]['id'], {
           success: function (response)
           {
+            currentFeed.mediaRequestsDone = true;
+
             response = _this.checkMediaResponse(response);
             if (response != false) {
               _this.saveUserData(response, currentFeed.feed_users[id], currentFeed);
@@ -316,6 +327,7 @@ wdi_front.instagramRequest = function (id, currentFeed)
           }
         });
       }
+
 
 }
 
@@ -742,7 +754,7 @@ wdi_front.masonryDisplayFeedItems = function (data, currentFeed)
 
   });
 
-
+  checkLoaded();
   /**
    * if feed type is not blog style then after displaying images assign click evetns to their captions
    * this part of code is a bit differenet from free version because of image lazy loading feature
@@ -1736,7 +1748,7 @@ wdi_front.bindEvents = function (currentFeed)
 wdi_front.infiniteScroll = function (currentFeed)
 {
 
-  if (jQuery(window).scrollTop() <= jQuery('#wdi_feed_' + currentFeed.feed_row['wdi_feed_counter'] + ' #wdi_infinite_scroll').offset().top) {
+  if ((jQuery(window).scrollTop() + jQuery(window).height() - 100) >= jQuery('#wdi_feed_' + currentFeed.feed_row['wdi_feed_counter'] + ' #wdi_infinite_scroll').offset().top) {
     if (currentFeed.infiniteScrollFlag === false && currentFeed.stopInfiniteScrollFlag == false) {
       currentFeed.infiniteScrollFlag = true;
       wdi_front.loadMore(jQuery('#wdi_feed_' + currentFeed.feed_row['wdi_feed_counter'] + ' #wdi_infinite_scroll'), currentFeed);
@@ -1986,13 +1998,23 @@ wdi_front.loadMore = function (button, _currentFeed)
  */
 wdi_front.loadMoreRequest = function (user, next_url, currentFeed, button)
 {
+  /*if there was no initial request, do not allow loadmore request */
+  if(!currentFeed.mediaRequestsDone){
+    return;
+  }
+
 
   var usersData = currentFeed['usersData'];
   var errorMessage = '';
+  /*sometimes (infinitescroll) loadMoreRequest is triggered before feed has any user data */
+  /**/
+  ///jQuery('#wdi_feed_' + currentFeed.feed_row.wdi_feed_counter + " .wdi_feed_wrapper").remove(".wdi_nomedia");
 
   currentFeed.instagram.requestByUrl(next_url, {
     success: function (response)
     {
+
+
       if (response === '' || typeof response == 'undefined' || response == null) {
         errorMessage = wdi_front_messages.network_error;
         currentFeed.loadMoreDataCount--;
@@ -2035,7 +2057,9 @@ wdi_front.loadMoreRequest = function (user, next_url, currentFeed, button)
       //checks if load more done then displays feed
       wdi_front.checkForLoadMoreDone(currentFeed, button);
     }
-  })
+  });
+
+
 
 }
 
@@ -2109,6 +2133,8 @@ wdi_front.checkForLoadMoreDone = function (currentFeed, button)
 
 wdi_front.allDataHasFinished = function (currentFeed)
 {
+
+
   var c = 0;
   for (var j = 0; j < currentFeed.dataStorageRaw.length; j++) {
     if (currentFeed.dataStorageRaw[j].length() == 0 && currentFeed.dataStorageRaw[j].locked == true) {
@@ -2194,11 +2220,15 @@ wdi_front.allImagesLoaded = function (currentFeed)
   //jQuery('#wdi_feed_'+currentFeed.feed_row['wdi_feed_counter']+' .wdi_ajax_loading').remove();
 
   ////////////////////////////////////////////////////
-
   var dataLength = wdi_front.getDataLength(currentFeed);
+  /*if there was no request for media, we do not know yet of feed data has been finished or not*/
+
+  if(! currentFeed.mediaRequestsDone){
+    jQuery('#wdi_feed_' + currentFeed.feed_row.wdi_feed_counter + " .wdi_feed_wrapper").remove("wdi_nomedia");
+  }
   /* display message if feed contains no image at all */
-  if (dataLength == 0 && (currentFeed.feed_row.conditional_filters.length == 0 || currentFeed.feed_row.conditional_filter_enable == 0)) {
-    jQuery('#wdi_feed_' + currentFeed.feed_row.wdi_feed_counter + " .wdi_feed_wrapper").append("<p>" + wdi_front_messages.feed_nomedia + "</p>");
+  if (dataLength == 0 && currentFeed.mediaRequestsDone && (currentFeed.feed_row.conditional_filters.length == 0 || currentFeed.feed_row.conditional_filter_enable == 0)) {
+    jQuery('#wdi_feed_' + currentFeed.feed_row.wdi_feed_counter + " .wdi_feed_wrapper").append("<p class='wdi_nomedia'>" + wdi_front_messages.feed_nomedia + "</p>");
   }
 
   //if all images loaded then enable load more button and hide spinner

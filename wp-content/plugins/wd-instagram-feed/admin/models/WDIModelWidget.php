@@ -25,13 +25,9 @@ class WDIModelWidget {
     $rows = $wpdb->get_results($query);
     return $rows;
   }
-  public function get_last_feed_id(){
-    global $wpdb;
-    $max_id = $wpdb->get_var('SELECT MAX(id) FROM ' . $wpdb->prefix . WDI_THEME_TABLE);
-    return $max_id;
-  }
 
-  
+
+
 
   ////////////////////////////////////////////////////////////////////////////////////////
   // Getters & Setters                                                                  //

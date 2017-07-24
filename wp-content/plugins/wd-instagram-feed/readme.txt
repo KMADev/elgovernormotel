@@ -3,8 +3,8 @@ Contributors: webdorado, progmastery
 Donate link: https://web-dorado.com/products/wordpress-instagram-feed-wd.html
 Tags: custom instagram feed, feed, instagram, hashtag, Instagram feed, instagram gallery, instagram posts, Instagram images, Instagram photos, lightbox, photos,instagram account
 Requires at least: 3.9
-Tested up to: 4.7
-Stable tag: 1.1.28
+Tested up to: 4.8
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,9 +15,9 @@ Instagram Feed WD is a user-friendly plugin to display user or hashtag-based Ins
 [WordPress WD Instagram Feed ](https://web-dorado.com/products/wordpress-instagram-feed-wd.html)   
 [Demo](http://wpdemo.web-dorado.com/instagram-wd/)  
 [User Guide](https://web-dorado.com/wordpress-instagram-feed-wd/installation-and-configuration/installation.html)    
-[Support Forum](https://web-dorado.com/forum/wordpress-instagram-feed-wd.html)        
-
-https://www.youtube.com/watch?v=ijdrpkVAfEw
+[Support Forum](https://web-dorado.com/forum/wordpress-instagram-feed-wd.html)    
+    
+https://www.youtube.com/watch?v=KU4LJFxw0BY
 
 Are you looking for a free Instagram feed plugin for WordPress ? Do you want to show Instagram posts, photos and images on your WordPress website? Do you want a simple integration, responsive Instagram gallery, beautiful and custom-styled feeds?
 Instagram Feed WD is the best Instagram plugin for WordPress to go with. It is a simple Instagram plugin that comes with a user-friendly management and easy setup, and lets you embed custom Instagram feeds of hashtags and users to your website in just a couple of minutes. You can embed Instagram galleries  and entire timelines to your posts using a shortcode or using the plugin’s  Instagram widget on your sidebar. You don’t need to install Instagram widget, or add any Instagram code. 0ur plugin comes with a free Instagram widget letting you display Instagram social feeds, photos, images as well as Instagram video feeds.
@@ -109,6 +109,22 @@ After downloading the ZIP file of the Instagram Feed WD plugin,
 5.  WordPress Instagram Feed WD - Theme Settings   
 
 == Changelog ==
+
+= 1.2.1 =
+New: Option to disable loading of new images in feed    
+
+= 1.2.0 =
+New: Default feed
+Fixed: Infinite scroll triggering (PRO)
+Fixed: "No media in feed" message on mobile masonry feed
+Fixed: Minor style conflicts with some themes
+
+= 1.1.30 =
+Changed: Frontend styles optimized, loads faster now   
+
+= 1.1.29 =
+Fixed: Display only published feeds in feeds selector popup for shortcode     
+Changed: UX improvement - no error message when user first inserts a widget then creates feeds    
 
 = 1.1.28 =
 Fixed: Conflict with some themes  

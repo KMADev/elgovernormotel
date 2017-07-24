@@ -2380,8 +2380,6 @@ class wpdb {
 	public function get_results( $query = null, $output = OBJECT ) {
 		$this->func_call = "\$db->get_results(\"$query\", $output)";
 
-		//print($query);
-
 		if ( $this->check_current_query && $this->check_safe_collation( $query ) ) {
 			$this->check_current_query = false;
 		}

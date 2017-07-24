@@ -100,8 +100,19 @@ class WDIControllerUninstall_wdi{
           };
 
           delete_option(WDI_OPT);
-         
-          $default_option=array();
+
+          $sample_post_id = get_option('wdi_sample_feed_post_id');
+          if($sample_post_id !== false){
+            wp_delete_post( $sample_post_id, true );
+          }
+
+          delete_option('wdi_sample_feed_id');
+          delete_option('wdi_sample_feed_post_id');
+          delete_option('wdi_sample_feed_post_url');
+          delete_option('wdi_first_user_username');
+
+
+            $default_option=array();
           $default_option['wdi_plugin_uninstalled'] = 'true';
 
           add_option(WDI_OPT,$default_option);
