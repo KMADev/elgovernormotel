@@ -1,0 +1,10 @@
+wp-config.php
+.git
+*.min.js
+*.min.css
+cgi-bin/
+.idea/
+tags
+error_log
+.user.ini
+php.ini
