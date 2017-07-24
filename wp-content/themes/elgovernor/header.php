@@ -31,7 +31,7 @@ $localphone = get_field('local_phone', 5);
     <div id="top-top" class="hidden-lg-up align-items-center justify-content-center">
         <div class="fluid-container">
             <div class="book-now">
-                <a class="book-now-cta text-center" href="tel:<? echo preg_replace('/[()-]/','', $localphone ); ?>">
+                <a class="book-now-cta text-center" href="tel:<? echo preg_replace('/[ ()-]/','', $localphone ); ?>">
                     Book Now: <? echo $localphone ?>
                 </a>
             </div>

@@ -83,8 +83,8 @@ $address = get_field('address', 5);
                         <img src="<?php echo get_template_directory_uri() . '/img/sunmark.png'; ?>" alt="El Governor Motel" class="img img-fluid">
                     </div>
                     <div class="footer-contact-info col-md-4">
-                        <p>Local: <a href="tel:<?php echo preg_replace('/[()-]/','', $localphone); ?>" ><?php echo $localphone; ?></a><br>
-                           Toll-free: <a href="tel:<?php echo preg_replace('/[()-]/','', $phone); ?>" ><?php echo $phone; ?></a></p>
+                        <p>Local: <a href="tel:<?php echo preg_replace('/[ ()-]/','', $localphone); ?>" ><?php echo $localphone; ?></a><br>
+                           Toll-free: <a href="tel:<?php echo preg_replace('/[ ()-]/','', $phone); ?>" ><?php echo $phone; ?></a></p>
                         <p><?php echo $address; ?></p>
                     </div>
                 </div>
