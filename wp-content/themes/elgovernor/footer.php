@@ -29,7 +29,7 @@ $address = get_field('address', 5);
                                 js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=131392937353724";
                                 fjs.parentNode.insertBefore(js, fjs);
                             }(document, 'script', 'facebook-jssdk'));</script>
-                        <div class="fb-page" data-href="https://www.facebook.com/ElGovernorMotel" data-tabs="timeline" data-width="500" data-height="461" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false"><blockquote cite="https://www.facebook.com/ElGovernorMotel" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/ElGovernorMotel">El Governor Motel</a></blockquote></div>
+                        <div class="fb-page" data-href="https://www.facebook.com/El-Governor-Motel-179580765407597/" data-tabs="timeline" data-width="500" data-height="461" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false"><blockquote cite="https://www.facebook.com/ElGovernorMotel" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/ElGovernorMotel">El Governor Motel</a></blockquote></div>
                         <p class="hashtag">#ElGovernorMotel</p>
                     </div>
                 </div>
