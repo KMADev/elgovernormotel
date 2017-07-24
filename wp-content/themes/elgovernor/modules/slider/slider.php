@@ -108,7 +108,8 @@ function getslider_func( $atts, $content = null ) {
 		$slideid = $slide->ID;
 		$title = $slide->post_title;
 		$headline = get_post_meta($slideid, 'slider_title', true );
-		$caption = get_post_meta($slideid, 'slider_cap', true );
+		$caption = get_post_meta($slideid, 'photo_details_caption', true );
+		$alttag = get_post_meta($slideid, 'photo_details_alt_tag', true);
 		$description = get_post_meta($slideid, 'slider_desc', true );
 		$link = get_post_meta( $slideid, 'slider_link', true );
 		$linktext = get_post_meta( $slideid, 'slider_linktext', true );
@@ -123,7 +124,7 @@ function getslider_func( $atts, $content = null ) {
 
 		$slides .= '<div class="carousel-item'; if($i < 1){ $slides .= ' active'; } $slides .= ' slide-'.$i.'">';
 		if( $link!='' ){ echo '<a href="'.$link.'" >'; }
-		$slides .= '<img src="'.$slider_thumb_url.'" alt="'.$caption.'" class="slider-image" />';
+		$slides .= '<img src="'.$slider_thumb_url.'" alt="'.$alttag.'" class="slider-image" />';
 		if( $link!='' ){ echo '</a>'; }
 
 		$slides .= '	<div class="carousel-caption" >';
