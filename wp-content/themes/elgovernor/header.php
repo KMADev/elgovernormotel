@@ -31,7 +31,7 @@ $localphone = get_field('local_phone', 5);
     <div id="top-top" class="hidden-lg-up align-items-center justify-content-center">
         <div class="fluid-container">
             <div class="book-now">
-                <a class="book-now-cta text-center" href="tel:<? echo $localphone ?>">
+                <a class="book-now-cta text-center" href="tel:<? echo preg_replace('/[()-]/','', $localphone ); ?>">
                     Book Now: <? echo $localphone ?>
                 </a>
             </div>
@@ -99,7 +99,7 @@ $localphone = get_field('local_phone', 5);
                             <p class="tagline">All of our rooms <strong>face the gulf!</strong></p>
                         </div>
                         <div class="col-5">
-                            <a class="cam-text" href="http://mexicobeach.com/mexico-beach/beach-cam/" target="_blank">Live Beach Cam <svg id="arrowsvg" data-name="arrowsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.67 26.93"><defs><style>.cls-1{fill:#fff;fill-rule:evenodd;}</style></defs><path class="cls-1" d="M119.49,380.55l-7.9-13h-8.78l8.78,13-8.78,13.9h8.78Z" transform="translate(-102.82 -367.52)"/></svg></a>
+                            <a class="cam-text" href="http://mexicobeach.com/mexico-beach/beach-cam/" target="_blank">Live Beach Cam <svg data-name="arrowsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.67 26.93"><defs><style>.cls-1{fill:#fff;fill-rule:evenodd;}</style></defs><path class="cls-1" d="M119.49,380.55l-7.9-13h-8.78l8.78,13-8.78,13.9h8.78Z" transform="translate(-102.82 -367.52)"/></svg></a>
                         </div>
                     </div>
                 </div>
@@ -107,20 +107,20 @@ $localphone = get_field('local_phone', 5);
 		            <?php echo do_shortcode('[getweather days="3" format="mini" location="Mexico Beach, FL"]'); ?>
                 </div>
                 <div class="mobile-slider">
-	                <?php echo do_shortcode('[getslider]'); ?>
+	                <?php echo do_shortcode('[getslider id="mobile-slider"]'); ?>
                 </div>
             </div>
             <div class="hidden-sm-down">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8">
-                            <?php echo do_shortcode('[getslider]'); ?>
+                            <?php echo do_shortcode('[getslider id="home-slider"]'); ?>
                         </div>
                         <div class="col-lg-4 weather-module">
                             <?php echo do_shortcode('[getweather days="3" format="mini" location="Mexico Beach, FL"]'); ?>
                             <div class="webcam-button-desktop text-center">
                                 <p class="tagline">All of our rooms<br><strong>face the gulf!</strong></p>
-                                <a class="cam-text" href="http://mexicobeach.com/mexico-beach/beach-cam/" target="_blank">Live Beach Cam <svg id="arrowsvg" data-name="arrowsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.67 26.93"><defs><style>.cls-1{fill:#fff;fill-rule:evenodd;}</style></defs><path class="cls-1" d="M119.49,380.55l-7.9-13h-8.78l8.78,13-8.78,13.9h8.78Z" transform="translate(-102.82 -367.52)"/></svg></a>
+                                <a class="cam-text" href="http://mexicobeach.com/mexico-beach/beach-cam/" target="_blank">Live Beach Cam <svg data-name="arrowsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.67 26.93"><defs><style>.cls-1{fill:#fff;fill-rule:evenodd;}</style></defs><path class="cls-1" d="M119.49,380.55l-7.9-13h-8.78l8.78,13-8.78,13.9h8.78Z" transform="translate(-102.82 -367.52)"/></svg></a>
                             </div>
                         </div>
                     </div>

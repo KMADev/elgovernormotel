@@ -60,6 +60,7 @@ function getslider_func( $atts, $content = null ) {
 	$a = shortcode_atts( array(
 		'category' => '',
 		'truncate' => 0,
+		'id'       => 'slider'
 	), $atts );
 
 	if($debugslider){
@@ -99,6 +100,9 @@ function getslider_func( $atts, $content = null ) {
 		print_r($slidelist);
 	}
 
+	$slides = '';
+	$dots = '';
+
 	$i = 0;
 	foreach($slidelist as $slide){
 		$slideid = $slide->ID;
@@ -118,16 +122,16 @@ function getslider_func( $atts, $content = null ) {
 		//print_r($slider_thumb_url);
 
 		$slides .= '<div class="carousel-item'; if($i < 1){ $slides .= ' active'; } $slides .= ' slide-'.$i.'">';
-		if( $link_url!='' ){ echo '<a href="'.$link_url.'" >'; }
+		if( $link!='' ){ echo '<a href="'.$link.'" >'; }
 		$slides .= '<img src="'.$slider_thumb_url.'" alt="'.$caption.'" class="slider-image" />';
-		if( $link_url!='' ){ echo '</a>'; }
+		if( $link!='' ){ echo '</a>'; }
 
 		$slides .= '	<div class="carousel-caption" >';
 		if($a['truncate']>0){ $description = shortensliderdesc($description, $a['truncate']); }
 		$slides .= '<p class="slider-headline">'.$headline.'</p>';
-		$slides .= '<p class="slider-description">'.$description.$readmore.'</p>';
+		$slides .= '<p class="slider-description">'.$description.'</p>';
 
-		if( $link!='' && $link_text!='' ){
+		if( $link!='' && $linktext!='' ){
 			$slides .= '<p class="carousel-more"><a href="'.$link.'"';
 				if($newwindow){ $slides .= ' target="_blank"'; }
 			$slides .= ' >'.$linktext.'</a></p>';
@@ -137,14 +141,14 @@ function getslider_func( $atts, $content = null ) {
 
 		$slides .= '</div>';
 
-		$dots .= '<li data-target="#home-carousel" data-slide-to="'.$i.'" ';
+		$dots .= '<li data-target="#'.$a['id'].'" data-slide-to="'.$i.'" ';
 		if($i < 1){ $dots .= 'class="active"'; } $dots .= '></li>';
 
 		$i++;
 	}
 
 	$output .='    
-	<div id="home-carousel" class="carousel slide carousel-fade" data-ride="carousel">
+	<div id="'.$a['id'].'" class="carousel slide carousel-fade" data-ride="carousel">
 		
 		<ol class="carousel-indicators">'.$dots.'</ol>
 		
@@ -152,11 +156,11 @@ function getslider_func( $atts, $content = null ) {
 		'.$slides.'
 		</div>
 		
-		<a class="carousel-control-prev" href="#home-carousel" role="button" data-slide="prev">
+		<a class="carousel-control-prev" href="#'.$a['id'].'" role="button" data-slide="prev">
 		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 		    <span class="sr-only">Previous</span>
 	    </a>
-	    <a class="carousel-control-next" href="#home-carousel" role="button" data-slide="next">
+	    <a class="carousel-control-next" href="#'.$a['id'].'" role="button" data-slide="next">
 		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 		    <span class="sr-only">Next</span>
 	    </a>
