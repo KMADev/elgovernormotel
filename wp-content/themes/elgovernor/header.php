@@ -184,7 +184,7 @@ $localphone = get_field('local_phone', 5);
 	                        <?php } ?>
                         </div>
                         <div class="col-md-6 col-lg-4 text-center">
-                            <form class="form form-inline" method="post" action="http://kmailer.kerigan.com/box.php">
+                            <form class="form form-inline" method="post" action="https://kmailer.kerigan.com/box.php">
                                 <div class="form-group mx-auto">
                                     <input type="text" class="email-signup-field form-control" name="email" placeholder="Enter your email" ><input type="submit" class="btn btn-yellow email-signup-button" value="Sign up" >
                                 </div>
